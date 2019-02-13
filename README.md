@@ -9,3 +9,12 @@ This library is available as [npm package](https://www.npmjs.com/package/@mangow
 ```console
 $ npm install --save-dev @mangoweb/snappyimg
 ```
+
+### Usage
+
+```javascript
+import Snappyimg, { SnappyimgStage } from '@mangoweb/snappyimg'
+
+const snappyimg = new Snappyimg('***', '***', SnappyimgStage.DEMO)
+console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
+```
