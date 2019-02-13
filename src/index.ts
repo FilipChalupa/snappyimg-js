@@ -1,4 +1,4 @@
-import { sha256 } from 'js-sha256'
+import CryptoJS from 'crypto-js'
 
 export enum SnappyimgStage {
 	DEMO = 'demo',
@@ -71,7 +71,7 @@ export default class Snappyimg {
 
 		return `https://${this.stage}.${Snappyimg.domain}/${
 			this.appToken
-		}/${signature}/${optionsUrlPart}`
+		}/${signature}${optionsUrlPart}`
 	}
 
 	private hashOriginalUrl(originalUrl: string) {
@@ -79,7 +79,7 @@ export default class Snappyimg {
 	}
 
 	private generateSignedPart(originalUrl: string, options: SnappyimgOptions) {
-		return `${options.resize}/${options.width}/${options.height}/${
+		return `/${options.resize}/${options.width}/${options.height}/${
 			options.gravity
 		}/${options.enlarge ? '1' : '0'}/${this.hashOriginalUrl(originalUrl)}.${
 			options.format
@@ -87,13 +87,23 @@ export default class Snappyimg {
 	}
 
 	private calculateSignature(input: string) {
-		return this.encodeBase64(sha256.hmac(this.appSecret, input))
+		return this.cleanBase64(
+			CryptoJS.enc.Base64.stringify(
+				CryptoJS.HmacSHA256(input, CryptoJS.enc.Hex.parse(this.appSecret))
+			)
+		)
 	}
 
 	private encodeBase64(input: string) {
-		return btoa(input)
-			.split('+/')
-			.join('-_')
+		return this.cleanBase64(btoa(input))
+	}
+
+	private cleanBase64(input: string) {
+		return input
+			.split('+')
+			.join('-')
+			.split('/')
+			.join('_')
 			.replace(/=+$/, '')
 	}
 }

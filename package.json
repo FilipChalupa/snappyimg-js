@@ -20,6 +20,8 @@
   "author": "Filip Chalupa",
   "license": "MIT",
   "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "crypto-js": "^3.1.9-1",
     "typescript": "^3.3.3"
   },
   "prettier": {
@@ -29,7 +31,5 @@
     "useTabs": true,
     "arrowParens": "always"
   },
-  "dependencies": {
-    "js-sha256": "^0.9.0"
-  }
+  "dependencies": {}
 }
