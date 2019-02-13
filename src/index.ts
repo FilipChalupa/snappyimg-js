@@ -36,7 +36,7 @@ interface SnappyimgOptions {
 }
 
 export default class Snappyimg {
-	static defaultOptions = {
+	private static readonly defaultOptions: Readonly<SnappyimgOptions> = {
 		resize: SnappyimgResize.FILL,
 		width: 1920,
 		height: 1080,
@@ -45,17 +45,13 @@ export default class Snappyimg {
 		format: SnappyimgFormat.JPG,
 	}
 
-	static domain = 'snappyimg.com'
+	private static readonly domain = 'snappyimg.com'
 
-	private appToken: string
-	private appSecret: string
-	private stage: SnappyimgStage
-
-	constructor(appToken: string, appSecret: string, stage: SnappyimgStage) {
-		this.appToken = appToken
-		this.appSecret = appSecret
-		this.stage = stage
-	}
+	constructor(
+		private readonly appToken: string,
+		private readonly appSecret: string,
+		private readonly stage: SnappyimgStage
+	) {}
 
 	public buildUrl(
 		originalUrl: string,
@@ -100,10 +96,8 @@ export default class Snappyimg {
 
 	private cleanBase64(input: string) {
 		return input
-			.split('+')
-			.join('-')
-			.split('/')
-			.join('_')
+			.replace(/\+/g, '-')
+			.replace(/\//g, '_')
 			.replace(/=+$/, '')
 	}
 }
