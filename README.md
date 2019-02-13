@@ -2,7 +2,7 @@
 
 This is a JavaScript implementation of Snappyimg URL builder. For more information about the service, go to [https://www.snappyimg.com/](https://www.snappyimg.com/).
 
-### Installation
+## Installation
 
 This library is available as [npm package](https://www.npmjs.com/package/@mangoweb/snappyimg):
 
@@ -10,7 +10,7 @@ This library is available as [npm package](https://www.npmjs.com/package/@mangow
 $ npm install --save-dev @mangoweb/snappyimg
 ```
 
-### Usage
+## Usage
 
 ```javascript
 import Snappyimg, { SnappyimgStage } from '@mangoweb/snappyimg'
@@ -19,7 +19,7 @@ const snappyimg = new Snappyimg('appToken', 'appSecret', SnappyimgStage.DEMO)
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
 ```
 
-#### Additional options
+### Additional options
 
 ```javascript
 import Snappyimg, {
@@ -44,3 +44,7 @@ const options = {
 }
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500', options))
 ```
+
+### Warning
+
+Don't use this library on frontend if you care to keep your `appSecret` private.
