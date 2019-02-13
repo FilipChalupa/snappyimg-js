@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js'
+import base64 from './base64'
 
 export enum SnappyimgStage {
 	Demo = 'demo',
@@ -91,7 +92,7 @@ export default class Snappyimg {
 	}
 
 	private encodeBase64(input: string) {
-		return this.cleanBase64(btoa(input))
+		return this.cleanBase64(base64(input))
 	}
 
 	private cleanBase64(input: string) {
