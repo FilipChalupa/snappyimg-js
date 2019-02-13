@@ -32,15 +32,15 @@ import Snappyimg, {
 const snappyimg = new Snappyimg(
 	'appToken',
 	'appSecret',
-	SnappyimgStage.DEMO // DEMO | SERVE
+	SnappyimgStage.Demo // Demo | Serve
 )
 const options = {
-	resize: SnappyimgResize.FILL, // FILL | FIT | CROP
+	resize: SnappyimgResize.Fill, // Fill | Fit | Crop
 	width: 1920, // number
 	height: 1080, // number
-	gravity: SnappyimgGravity.SMART, // SMART | CENTER | NORTH | SOUTH | EAST | WEST
+	gravity: SnappyimgGravity.Smart, // Smart | Center | North | South | East | West
 	enlarge: true, // boolean
-	format: SnappyimgFormat.JPG, // JPG | PNG | WEBP
+	format: SnappyimgFormat.Jpg, // Jpg | Png | Webp
 }
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500', options))
 ```

@@ -1,29 +1,29 @@
 import CryptoJS from 'crypto-js'
 
 export enum SnappyimgStage {
-	DEMO = 'demo',
-	SERVE = 'serve',
+	Demo = 'demo',
+	Serve = 'serve',
 }
 
 export enum SnappyimgResize {
-	FILL = 'fill',
-	FIT = 'fit',
-	CROP = 'crop',
+	Fill = 'fill',
+	Fit = 'fit',
+	Crop = 'crop',
 }
 
 export enum SnappyimgGravity {
-	SMART = 'sm',
-	CENTER = 'ce',
-	NORTH = 'no',
-	SOUTH = 'so',
-	EAST = 'ea',
-	WEST = 'we',
+	Smart = 'sm',
+	Center = 'ce',
+	North = 'no',
+	South = 'so',
+	East = 'ea',
+	West = 'we',
 }
 
 export enum SnappyimgFormat {
-	PNG = 'png',
-	JPG = 'jpg',
-	WEBP = 'webp',
+	Png = 'png',
+	Jpg = 'jpg',
+	Webp = 'webp',
 }
 
 interface SnappyimgOptions {
@@ -37,12 +37,12 @@ interface SnappyimgOptions {
 
 export default class Snappyimg {
 	private static readonly defaultOptions: Readonly<SnappyimgOptions> = {
-		resize: SnappyimgResize.FILL,
+		resize: SnappyimgResize.Fill,
 		width: 1920,
 		height: 1080,
-		gravity: SnappyimgGravity.SMART,
+		gravity: SnappyimgGravity.Smart,
 		enlarge: true,
-		format: SnappyimgFormat.JPG,
+		format: SnappyimgFormat.Jpg,
 	}
 
 	private static readonly domain = 'snappyimg.com'
