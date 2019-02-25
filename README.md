@@ -13,34 +13,29 @@ $ npm install --save-dev @mangoweb/snappyimg
 ## Usage
 
 ```javascript
-import Snappyimg, { SnappyimgStage } from '@mangoweb/snappyimg'
+import Snappyimg from '@mangoweb/snappyimg'
 
-const snappyimg = new Snappyimg('appToken', 'appSecret', SnappyimgStage.DEMO)
+const snappyimg = new Snappyimg('appToken', 'appSecret', Snappyimg.Stage.DEMO)
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
 ```
 
 ### Additional options
 
 ```javascript
-import Snappyimg, {
-	SnappyimgStage,
-	SnappyimgResize,
-	SnappyimgGravity,
-	SnappyimgFormat,
-} from '@mangoweb/snappyimg'
+import Snappyimg from '@mangoweb/snappyimg'
 
 const snappyimg = new Snappyimg(
 	'appToken',
 	'appSecret',
-	SnappyimgStage.Demo // Demo | Serve
+	Snappyimg.Stage.Demo // Demo | Serve
 )
 const options = {
-	resize: SnappyimgResize.Fill, // Fill | Fit | Crop
+	resize: Snappyimg.Resize.Fill, // Fill | Fit | Crop
 	width: 1920, // number
 	height: 1080, // number
-	gravity: SnappyimgGravity.Smart, // Smart | Center | North | South | East | West
+	gravity: Snappyimg.Gravity.Smart, // Smart | Center | North | South | East | West
 	enlarge: true, // boolean
-	format: SnappyimgFormat.Jpg, // Jpg | Png | Webp
+	format: Snappyimg.Format.Jpg, // Jpg | Png | Webp
 }
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500', options))
 ```
