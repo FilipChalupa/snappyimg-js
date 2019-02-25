@@ -106,3 +106,4 @@ namespace Snappyimg {
 }
 
 export default Snappyimg
+export { Snappyimg }
