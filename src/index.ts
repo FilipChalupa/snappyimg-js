@@ -1,64 +1,20 @@
 import CryptoJS from 'crypto-js'
 import base64 from './base64'
 
-export enum SnappyimgStage {
-	Demo = 'demo',
-	Serve = 'serve',
-}
-
-export enum SnappyimgResize {
-	Fill = 'fill',
-	Fit = 'fit',
-	Crop = 'crop',
-}
-
-export enum SnappyimgGravity {
-	Smart = 'sm',
-	Center = 'ce',
-	North = 'no',
-	South = 'so',
-	East = 'ea',
-	West = 'we',
-}
-
-export enum SnappyimgFormat {
-	Png = 'png',
-	Jpg = 'jpg',
-	Webp = 'webp',
-}
-
-interface SnappyimgOptions {
-	resize: SnappyimgResize
-	width: number
-	height: number
-	gravity: SnappyimgGravity
-	enlarge: boolean
-	format: SnappyimgFormat
-}
-
-export default class Snappyimg {
-	private static readonly defaultOptions: Readonly<SnappyimgOptions> = {
-		resize: SnappyimgResize.Fill,
-		width: 1920,
-		height: 1080,
-		gravity: SnappyimgGravity.Smart,
-		enlarge: true,
-		format: SnappyimgFormat.Jpg,
-	}
-
+class Snappyimg {
 	private static readonly domain = 'snappyimg.com'
 
 	constructor(
 		private readonly appToken: string,
 		private readonly appSecret: string,
-		private readonly stage: SnappyimgStage
+		private readonly stage: Snappyimg.Stage
 	) {}
 
 	public buildUrl(
 		originalUrl: string,
-		customOptions: Partial<SnappyimgOptions> = {}
+		customOptions: Partial<Snappyimg.Options> = {}
 	) {
-		const options: SnappyimgOptions = {
+		const options: Snappyimg.Options = {
 			...Snappyimg.defaultOptions,
 			...customOptions,
 		}
@@ -75,7 +31,7 @@ export default class Snappyimg {
 		return this.encodeBase64(originalUrl)
 	}
 
-	private generateSignedPart(originalUrl: string, options: SnappyimgOptions) {
+	private generateSignedPart(originalUrl: string, options: Snappyimg.Options) {
 		return `/${options.resize}/${options.width}/${options.height}/${
 			options.gravity
 		}/${options.enlarge ? '1' : '0'}/${this.hashOriginalUrl(originalUrl)}.${
@@ -102,3 +58,51 @@ export default class Snappyimg {
 			.replace(/=+$/, '')
 	}
 }
+
+namespace Snappyimg {
+	export enum Stage {
+		Demo = 'demo',
+		Serve = 'serve',
+	}
+
+	export enum Resize {
+		Fill = 'fill',
+		Fit = 'fit',
+		Crop = 'crop',
+	}
+
+	export enum Gravity {
+		Smart = 'sm',
+		Center = 'ce',
+		North = 'no',
+		South = 'so',
+		East = 'ea',
+		West = 'we',
+	}
+
+	export enum Format {
+		Png = 'png',
+		Jpg = 'jpg',
+		Webp = 'webp',
+	}
+
+	export interface Options {
+		resize: Resize
+		width: number
+		height: number
+		gravity: Gravity
+		enlarge: boolean
+		format: Format
+	}
+
+	export const defaultOptions: Readonly<Options> = {
+		resize: Resize.Fill,
+		width: 1920,
+		height: 1080,
+		gravity: Gravity.Smart,
+		enlarge: true,
+		format: Format.Jpg,
+	}
+}
+
+export default Snappyimg
