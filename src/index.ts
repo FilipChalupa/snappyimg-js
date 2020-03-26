@@ -1,4 +1,6 @@
-import CryptoJS from 'crypto-js'
+import encBase64 from 'crypto-js/enc-base64'
+import encHex from 'crypto-js/enc-hex'
+import hmacSHA256 from 'crypto-js/hmac-sha256'
 import base64 from './base64'
 
 class Snappyimg {
@@ -41,9 +43,7 @@ class Snappyimg {
 
 	private calculateSignature(input: string) {
 		return this.cleanBase64(
-			CryptoJS.enc.Base64.stringify(
-				CryptoJS.HmacSHA256(input, CryptoJS.enc.Hex.parse(this.appSecret))
-			)
+			encBase64.stringify(hmacSHA256(input, encHex.parse(this.appSecret)))
 		)
 	}
 
