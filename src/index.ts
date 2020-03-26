@@ -24,9 +24,7 @@ class Snappyimg {
 		const optionsUrlPart = this.generateSignedPart(originalUrl, options)
 		const signature = this.calculateSignature(optionsUrlPart)
 
-		return `https://${this.stage}.${Snappyimg.domain}/${
-			this.appToken
-		}/${signature}${optionsUrlPart}`
+		return `https://${this.stage}.${Snappyimg.domain}/${this.appToken}/${signature}${optionsUrlPart}`
 	}
 
 	private hashOriginalUrl(originalUrl: string) {
