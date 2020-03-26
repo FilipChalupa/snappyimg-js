@@ -15,7 +15,7 @@ $ npm install --save-dev @mangoweb/snappyimg
 ```javascript
 import Snappyimg from '@mangoweb/snappyimg'
 
-const snappyimg = new Snappyimg('appToken', 'appSecret', Snappyimg.Stage.DEMO)
+const snappyimg = new Snappyimg('appToken', 'appSecret', Snappyimg.Stage.Demo)
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
 ```
 
