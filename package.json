@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "start": "tsc --watch",
     "build": "tsc",
     "prepublish": "npm test && npm run build"
   },
