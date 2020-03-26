@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import 'mocha'
-import Snappyimg from '.'
+import { Snappyimg } from './index'
 
 const originalUrl = 'https://www.snappyimg.com/demo.jpg'
 const appToken = 'dummyappid'

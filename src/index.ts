@@ -1,5 +1,22 @@
-import CryptoJS from 'crypto-js'
-import base64 from './base64'
+//import crypto from 'crypto'
+//import { stringBase64, arrayBufferBase64 } from './base64'
+
+export function stringBase64(input: string) {
+	if (typeof btoa !== 'undefined') {
+		return btoa(input)
+	} else {
+		return Buffer.from(input).toString('base64')
+	}
+}
+
+export function arrayBufferBase64(buffer: ArrayBuffer) {
+	let binary = ''
+	const bytes = new Uint8Array(buffer)
+	for (var i = 0; i < bytes.byteLength; i++) {
+		binary += String.fromCharCode(bytes[i])
+	}
+	return stringBase64(binary)
+}
 
 class Snappyimg {
 	private static readonly domain = 'snappyimg.com'
@@ -10,7 +27,7 @@ class Snappyimg {
 		private readonly stage: Snappyimg.Stage
 	) {}
 
-	public buildUrl(
+	public async buildUrl(
 		originalUrl: string,
 		customOptions: Partial<Snappyimg.Options> = {}
 	) {
@@ -20,11 +37,9 @@ class Snappyimg {
 		}
 
 		const optionsUrlPart = this.generateSignedPart(originalUrl, options)
-		const signature = this.calculateSignature(optionsUrlPart)
+		const signature = await this.calculateSignature(optionsUrlPart)
 
-		return `https://${this.stage}.${Snappyimg.domain}/${
-			this.appToken
-		}/${signature}${optionsUrlPart}`
+		return `https://${this.stage}.${Snappyimg.domain}/${this.appToken}/${signature}${optionsUrlPart}`
 	}
 
 	private hashOriginalUrl(originalUrl: string) {
@@ -39,16 +54,50 @@ class Snappyimg {
 		}`
 	}
 
-	private calculateSignature(input: string) {
-		return this.cleanBase64(
-			CryptoJS.enc.Base64.stringify(
-				CryptoJS.HmacSHA256(input, CryptoJS.enc.Hex.parse(this.appSecret))
-			)
+	private async generateKey() {
+		/*return await crypto.subtle.generateKey(
+			{
+				name: 'HMAC',
+				hash: 'SHA-256',
+			},
+			true,
+			['sign', 'verify']
+		)*/
+		const encoder = new TextEncoder()
+		const data = encoder.encode(this.appSecret)
+		return await crypto.subtle.importKey(
+			'raw',
+			data,
+			{
+				name: 'HMAC',
+				hash: 'SHA-256',
+			},
+			false,
+			['sign']
 		)
 	}
 
+	private async calculateSignature(input: string) {
+		console.log(input)
+		if (typeof crypto === 'undefined') {
+			throw new Error('Undefined crypto')
+		}
+		const encoder = new TextEncoder()
+		const data = encoder.encode(input)
+		//const hash = await crypto.subtle.digest('SHA-256', data)
+		const key = await this.generateKey()
+		const hash = await crypto.subtle.sign('HMAC', key, data)
+		console.log(hash)
+		const after = this.cleanBase64(arrayBufferBase64(hash))
+
+		//console.log(before === after)
+		console.log(after)
+		console.log('')
+		return after
+	}
+
 	private encodeBase64(input: string) {
-		return this.cleanBase64(base64(input))
+		return this.cleanBase64(stringBase64(input))
 	}
 
 	private cleanBase64(input: string) {
@@ -105,5 +154,5 @@ namespace Snappyimg {
 	}
 }
 
-export default Snappyimg
+//export default Snappyimg
 export { Snappyimg }
