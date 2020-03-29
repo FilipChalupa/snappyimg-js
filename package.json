@@ -1,6 +1,6 @@
 {
   "name": "@mangoweb/snappyimg",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Snappyimg URL builder. For more information about the service, go to https://www.snappyimg.com/.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
