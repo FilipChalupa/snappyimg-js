@@ -7,7 +7,7 @@ This is a JavaScript implementation of Snappyimg URL builder. For more informati
 This library is available as [npm package](https://www.npmjs.com/package/@mangoweb/snappyimg):
 
 ```console
-$ npm install --save-dev @mangoweb/snappyimg
+$ npm install @mangoweb/snappyimg
 ```
 
 ## Usage
