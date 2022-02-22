@@ -4,16 +4,16 @@ This is a JavaScript implementation of Snappyimg URL builder. For more informati
 
 ## Installation
 
-This library is available as [npm package](https://www.npmjs.com/package/@mangoweb/snappyimg):
+This library is available as [npm package](https://www.npmjs.com/package/snappyimg):
 
 ```console
-npm install @mangoweb/snappyimg
+npm install snappyimg
 ```
 
 ## Usage
 
 ```javascript
-import Snappyimg from '@mangoweb/snappyimg'
+import Snappyimg from 'snappyimg'
 
 const snappyimg = new Snappyimg('appToken', 'appSecret', Snappyimg.Stage.Demo)
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
@@ -22,7 +22,7 @@ console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
 ### Additional options
 
 ```javascript
-import Snappyimg from '@mangoweb/snappyimg'
+import Snappyimg from 'snappyimg'
 
 const snappyimg = new Snappyimg(
 	'appToken',
