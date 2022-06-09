@@ -38,7 +38,7 @@ export interface Options {
 	format: Format
 }
 
-class Snappyimg {
+export class Snappyimg {
 	private static readonly domain = 'snappyimg.com'
 
 	public static defaultOptions: Readonly<Options> = {
@@ -94,5 +94,3 @@ class Snappyimg {
 		return input.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 	}
 }
-
-export default Snappyimg

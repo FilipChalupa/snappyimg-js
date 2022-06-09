@@ -13,29 +13,29 @@ npm install snappyimg
 ## Usage
 
 ```javascript
-import Snappyimg from 'snappyimg'
+import { Snappyimg, Stage } from 'snappyimg'
 
-const snappyimg = new Snappyimg('appToken', 'appSecret', Snappyimg.Stage.Demo)
+const snappyimg = new Snappyimg('appToken', 'appSecret', Stage.Demo)
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500'))
 ```
 
 ### Additional options
 
 ```javascript
-import Snappyimg from 'snappyimg'
+import { Snappyimg, Stage, Resize, Gravity, Format } from 'snappyimg'
 
 const snappyimg = new Snappyimg(
 	'appToken',
 	'appSecret',
-	Snappyimg.Stage.Demo // Demo | Serve
+	Stage.Demo // Demo | Serve
 )
 const options = {
-	resize: Snappyimg.Resize.Fill, // Fill | Fit | Crop
+	resize: Resize.Fill, // Fill | Fit | Crop
 	width: 1920, // number
 	height: 1080, // number
-	gravity: Snappyimg.Gravity.Smart, // Smart | Center | North | South | East | West
+	gravity: Gravity.Smart, // Smart | Center | North | South | East | West
 	enlarge: true, // boolean
-	format: Snappyimg.Format.Jpg, // Jpg | Png | Webp
+	format: Format.Jpg, // Jpg | Png | Webp
 }
 console.log(snappyimg.buildUrl('https://placekitten.com/2000/1500', options))
 ```
