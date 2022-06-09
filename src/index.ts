@@ -3,20 +3,65 @@ import encHex from 'crypto-js/enc-hex'
 import hmacSHA256 from 'crypto-js/hmac-sha256'
 import base64 from './base64'
 
+enum Stage {
+	Demo = 'demo',
+	Serve = 'serve',
+}
+
+enum Resize {
+	Fill = 'fill',
+	Fit = 'fit',
+	Crop = 'crop',
+}
+
+enum Gravity {
+	Smart = 'sm',
+	Center = 'ce',
+	North = 'no',
+	South = 'so',
+	East = 'ea',
+	West = 'we',
+}
+
+enum Format {
+	Png = 'png',
+	Jpg = 'jpg',
+	Webp = 'webp',
+}
+
+export interface Options {
+	resize: Resize
+	width: number
+	height: number
+	gravity: Gravity
+	enlarge: boolean
+	format: Format
+}
+
 class Snappyimg {
 	private static readonly domain = 'snappyimg.com'
+
+	public static Stage = Stage
+	public static Resize = Resize
+	public static Gravity = Gravity
+	public static Format = Format
+	public static defaultOptions: Readonly<Options> = {
+		resize: Resize.Fill,
+		width: 1920,
+		height: 1080,
+		gravity: Gravity.Smart,
+		enlarge: true,
+		format: Format.Jpg,
+	}
 
 	constructor(
 		private readonly appToken: string,
 		private readonly appSecret: string,
-		private readonly stage: Snappyimg.Stage
+		private readonly stage: Stage
 	) {}
 
-	public buildUrl(
-		originalUrl: string,
-		customOptions: Partial<Snappyimg.Options> = {}
-	) {
-		const options: Snappyimg.Options = {
+	public buildUrl(originalUrl: string, customOptions: Partial<Options> = {}) {
+		const options: Options = {
 			...Snappyimg.defaultOptions,
 			...customOptions,
 		}
@@ -31,7 +76,7 @@ class Snappyimg {
 		return this.encodeBase64(originalUrl)
 	}
 
-	private generateSignedPart(originalUrl: string, options: Snappyimg.Options) {
+	private generateSignedPart(originalUrl: string, options: Options) {
 		return `/${options.resize}/${options.width}/${options.height}/${
 			options.gravity
 		}/${options.enlarge ? '1' : '0'}/${this.hashOriginalUrl(originalUrl)}.${
@@ -50,58 +95,8 @@ class Snappyimg {
 	}
 
 	private cleanBase64(input: string) {
-		return input
-			.replace(/\+/g, '-')
-			.replace(/\//g, '_')
-			.replace(/=+$/, '')
-	}
-}
-
-namespace Snappyimg {
-	export enum Stage {
-		Demo = 'demo',
-		Serve = 'serve',
-	}
-
-	export enum Resize {
-		Fill = 'fill',
-		Fit = 'fit',
-		Crop = 'crop',
-	}
-
-	export enum Gravity {
-		Smart = 'sm',
-		Center = 'ce',
-		North = 'no',
-		South = 'so',
-		East = 'ea',
-		West = 'we',
-	}
-
-	export enum Format {
-		Png = 'png',
-		Jpg = 'jpg',
-		Webp = 'webp',
-	}
-
-	export interface Options {
-		resize: Resize
-		width: number
-		height: number
-		gravity: Gravity
-		enlarge: boolean
-		format: Format
-	}
-
-	export const defaultOptions: Readonly<Options> = {
-		resize: Resize.Fill,
-		width: 1920,
-		height: 1080,
-		gravity: Gravity.Smart,
-		enlarge: true,
-		format: Format.Jpg,
+		return input.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 	}
 }
 
 export default Snappyimg
-export { Snappyimg }
