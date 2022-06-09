@@ -1,6 +1,6 @@
 {
   "name": "snappyimg",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Snappyimg URL builder. For more information about the service, go to https://www.snappyimg.com/.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
