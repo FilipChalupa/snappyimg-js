@@ -3,18 +3,18 @@ import encHex from 'crypto-js/enc-hex'
 import hmacSHA256 from 'crypto-js/hmac-sha256'
 import base64 from './base64'
 
-enum Stage {
+export enum Stage {
 	Demo = 'demo',
 	Serve = 'serve',
 }
 
-enum Resize {
+export enum Resize {
 	Fill = 'fill',
 	Fit = 'fit',
 	Crop = 'crop',
 }
 
-enum Gravity {
+export enum Gravity {
 	Smart = 'sm',
 	Center = 'ce',
 	North = 'no',
@@ -23,7 +23,7 @@ enum Gravity {
 	West = 'we',
 }
 
-enum Format {
+export enum Format {
 	Png = 'png',
 	Jpg = 'jpg',
 	Webp = 'webp',
@@ -41,10 +41,6 @@ export interface Options {
 class Snappyimg {
 	private static readonly domain = 'snappyimg.com'
 
-	public static Stage = Stage
-	public static Resize = Resize
-	public static Gravity = Gravity
-	public static Format = Format
 	public static defaultOptions: Readonly<Options> = {
 		resize: Resize.Fill,
 		width: 1920,

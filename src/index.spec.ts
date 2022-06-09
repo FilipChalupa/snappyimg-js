@@ -1,11 +1,11 @@
 import { expect } from 'chai'
 import 'mocha'
-import Snappyimg from '.'
+import Snappyimg, { Format, Gravity, Resize, Stage } from '.'
 
 const originalUrl = 'https://www.snappyimg.com/demo.jpg'
 const appToken = 'dummyappid'
 const appSecret = 'beefcafebeefcafe'
-const snappyimg = new Snappyimg(appToken, appSecret, Snappyimg.Stage.Demo)
+const snappyimg = new Snappyimg(appToken, appSecret, Stage.Demo)
 
 describe('Default options', () => {
 	it('should return url with default options', () => {
@@ -19,7 +19,7 @@ describe('Default options', () => {
 describe('Custom resize option', () => {
 	it('should return url with resize set to fit', () => {
 		const result = snappyimg.buildUrl(originalUrl, {
-			resize: Snappyimg.Resize.Fit,
+			resize: Resize.Fit,
 		})
 		expect(result).to.equal(
 			'https://demo.snappyimg.com/dummyappid/p6O_lxAWAVvk-kvWNSYupglsvgAxWdXVd9Ijh1zf708/fit/1920/1080/sm/1/aHR0cHM6Ly93d3cuc25hcHB5aW1nLmNvbS9kZW1vLmpwZw.jpg'
@@ -52,7 +52,7 @@ describe('Custom height option', () => {
 describe('Custom format option', () => {
 	it('should return url in jpg format', () => {
 		const result = snappyimg.buildUrl(originalUrl, {
-			format: Snappyimg.Format.Jpg,
+			format: Format.Jpg,
 		})
 		expect(result).to.equal(
 			'https://demo.snappyimg.com/dummyappid/SamflMft2_2rUqwGjy0pwmvH7phmtgFdU8zJ9L_Tf_0/fill/1920/1080/sm/1/aHR0cHM6Ly93d3cuc25hcHB5aW1nLmNvbS9kZW1vLmpwZw.jpg'
@@ -74,7 +74,7 @@ describe('Custom enlarge option', () => {
 describe('Custom gravity option', () => {
 	it('should return url with gravity set to south', () => {
 		const result = snappyimg.buildUrl(originalUrl, {
-			gravity: Snappyimg.Gravity.South,
+			gravity: Gravity.South,
 		})
 		expect(result).to.equal(
 			'https://demo.snappyimg.com/dummyappid/5BQZXV1z_3XTV_zoxhVozdjTmbqfAFsbcr_025FZKTc/fill/1920/1080/so/1/aHR0cHM6Ly93d3cuc25hcHB5aW1nLmNvbS9kZW1vLmpwZw.jpg'
